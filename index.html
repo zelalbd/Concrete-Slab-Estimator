@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Slab Concrete Estimator</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; }
+        button { background: #007bff; color: white; padding: 10px 20px; border: none; width: 100%; cursor: pointer; }
+        #result { margin-top: 20px; font-weight: bold; color: #28a745; }
+    </style>
+</head>
+<body>
+    <h2>Slab Concrete Estimator</h2>
+    <input type="number" id="length" placeholder="Length (ft)">
+    <input type="number" id="width" placeholder="Width (ft)">
+    <input type="number" id="thickness" placeholder="Thickness (inches)">
+    <input type="number" id="price" placeholder="Price per Cubic Yard (Tk.)">
+    <button onclick="calculate()">Calculate Now</button>
+    <div id="result" style="white-space:pre-line;"></div>
+
+    <!--<script src="scripts/script.js"></script>-->
+    <script>
+    function calculate() {
+    // 1. Get values from the input fields
+    const L = parseFloat(document.getElementById('length').value);
+    const W = parseFloat(document.getElementById('width').value);
+    const T = parseFloat(document.getElementById('thickness').value) / 12; // Convert inches to feet
+    const pricePerYard = parseFloat(document.getElementById('price').value);
+
+    // 2. Validate inputs
+    if (isNaN(L) || isNaN(W) || isNaN(T) || isNaN(pricePerYard)) {
+        alert("Please enter all values correctly.");
+        return;
+    }
+
+    // 3. Perform Calculations
+    const cubicFeet = L * W * T;
+    const cubicYards = cubicFeet / 27; // 27 cubic feet in a cubic yard
+    const totalCost = cubicYards * pricePerYard;
+
+    // 4. Output the result to the screen
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = `
+        Volume: ${cubicYards.toFixed(2)} Cubic Yards<br>
+        Estimated Cost: Tk${totalCost.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+    `;
+    
+    // Console log for debugging (check this in Code Studio's console tab!)
+    console.log("Calculation Successful: ", { cubicYards, totalCost });
+}
+
+    
+    </script>
+  
+</body>
+</html>
+
+
+
